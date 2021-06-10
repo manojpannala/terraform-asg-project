@@ -7,7 +7,7 @@
 
 # Define Subnet Group for RDS Service
 resource "aws_db_subnet_group" "mrp-rds-subnet-group" {
-    name = "${var.ENVIRONMENT}-mrp-rds-db"  
+    name = "${var.ENVIRONMENT}-mrp-rds-db-snet"  
     description = "Allowed subnets for DB cluster instances"
     subnet_ids = [ 
         "${var.vpc_private_subnet1}",
