@@ -78,7 +78,7 @@ resource "aws_autoscaling_group" "mrp_asg" {
     force_delete = true
     launch_configuration = aws_launch_configuration.launch_config_app.name
     vpc_zone_identifier = ["${module.mrp_vpc.public_subnet_1_id}","${module.mrp_vpc.public_subnet_2_id}"]
-    target_group_arns = [aws_lb_target_group.load-balancer-target_group.arn]
+    target_group_arns = [aws_lb_target_group.load-balancer-target-group.arn]
 }
 
 # Application Load Balancer for App Server
