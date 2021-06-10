@@ -101,10 +101,10 @@ resource "aws_nat_gateway" "mrp-ngw" {
 # Route Table for Public Architecture
 resource "aws_route_table" "public-rtb" {
     vpc_id = aws_vpc.mrp_vpc.id
-    route = [ {
+    route =  {
       cidr_block = "0.0.0.0/0"
       gateway_id = aws_internet_gateway.mrp-igw.id
-    } ]
+    } 
 
     tags = {
         Name = "${var.ENVIRONMENT}-public-rtb"
@@ -114,10 +114,10 @@ resource "aws_route_table" "public-rtb" {
 # Route Table for Private Architecture
 resource "aws_route_table" "private-rtb" {
     vpc_id = aws_vpc.mrp_vpc.id
-    route = [ {
+    route =  {
       cidr_block = "0.0.0.0/0"
       gateway_id = aws_nat_gateway.mrp-ngw.id
-    } ]
+    } 
 
     tags = {
         Name = "${var.ENVIRONMENT}-private-rtb"
