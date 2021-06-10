@@ -45,3 +45,10 @@ resource "aws_security_group" "mrp_app" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 }
+
+# Resource Key-Pair
+resource "aws_key_pair" "mrp_key" {
+    key_name = "mrp_key"  
+    public_key = file(var.public_key_path)
+}
+
