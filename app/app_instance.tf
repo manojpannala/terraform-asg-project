@@ -1,13 +1,16 @@
-module "mrp_vpc" {
-    source = "../module/vpc"
-    ENVIRONMENT = var.ENVIRONMENT
-    AWS_REGION = var.AWS_REGION
-}
+# module "mrp_vpc" {
+#     source = "../module/vpc"
+#     ENVIRONMENT = var.ENVIRONMENT
+#     AWS_REGION = var.AWS_REGION
+# }
 
 module "mrp_rds" {
     source = "../module/rds"
     ENVIRONMENT = var.ENVIRONMENT
     AWS_REGION = var.AWS_REGION
+    vpc_private_subnet1 = var.vpc_private_subnet1
+    vpc_private_subnet2 = var.vpc_private_subnet2
+    vpc_id = var.vpc_id
 }
 
 # Define Security Group for the App
@@ -18,7 +21,7 @@ resource "aws_security_group" "mrp_app" {
 
     name = "${var.ENVIRONMENT}-mrp-app"
     description = "Created by MRP"
-    vpc_id = module.mrp_vpc.my_vpc_id
+    vpc_id = var.vpc_id
 
     ingress {
         from_port = 22
@@ -77,7 +80,7 @@ resource "aws_autoscaling_group" "mrp_asg" {
     desired_capacity = 1
     force_delete = true
     launch_configuration = aws_launch_configuration.launch_config_app.name
-    vpc_zone_identifier = ["${module.mrp_vpc.public_subnet_1_id}","${module.mrp_vpc.public_subnet_2_id}"]
+    vpc_zone_identifier = ["${var.vpc_public_subnet1}", "${var.vpc_public_subnet2}"]
     target_group_arns = [aws_lb_target_group.load-balancer-target-group.arn]
 }
 
@@ -87,7 +90,7 @@ resource "aws_alb" "mrp-load-balancer" {
     internal = false
     load_balancer_type = "application"
     security_groups = [aws_security_group.mrp_app_alb.id]
-    subnets = [ "${module.mrp_vpc.public_subnet_1_id}", "${module.mrp_vpc.public_subnet_2_id}" ]
+    subnets = ["${var.vpc_public_subnet1}", "${var.vpc_public_subnet2}"]
 }
 
 # Add Target Groups
@@ -95,7 +98,7 @@ resource "aws_alb_target_group" "load-balancer-target-group" {
     name = "load-balancer-target-group"  
     port = 80
     protocol = "HTTP"
-    vpc_id = module.mrp_vpc.my_vpc_id
+    vpc_id = var.vpc_id
 }
 
 # Adding HTTP Listener

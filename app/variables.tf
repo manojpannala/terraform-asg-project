@@ -30,3 +30,34 @@ variable "public_key_path" {
     description = "Public key path"
     default = "~/.ssh.mrp_key.pub"
 }
+
+variable "vpc_private_subnet1" {
+  description = "AWS VPC Environment Name"
+  type        = string
+  default     = ""
+}
+
+variable "vpc_private_subnet2" {
+  description = "AWS VPC Environment Name"
+  type        = string
+  default     = ""
+}
+
+variable "vpc_id" {
+  description = "AWS VPC Environment Name"
+  type        = string
+  default     = ""
+}
+
+
+variable "vpc_public_subnet1" {
+  description = "AWS VPC Environment Name"
+  type        = string
+  default     = ""
+}
+
+variable "vpc_public_subnet2" {
+  description = "AWS VPC Environment Name"
+  type        = string
+  default     = ""
+}

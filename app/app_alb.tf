@@ -5,7 +5,7 @@ resource "aws_security_group" "mrp_app_alb" {
 
     name = "${var.ENVIRONMENT}-mrp-app-ALB"
     description = "ALB"
-    vpc_id = module.mrp_vpc.my_vpc_id
+    vpc_id = var.vpc_id
 
     ingress {
         from_port = 80
