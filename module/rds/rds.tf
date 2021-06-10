@@ -22,7 +22,7 @@ resource "aws_db_subnet_group" "mrp-rds-subnet-group" {
 resource "aws_security_group" "mrp-rds-sg" {
     name = "${var.ENVIRONMENT}-mrp-rds-sg"  
     description = "SG for RDS"
-    vpc_id = module.mrp_vpc.my_vpc_id
+    vpc_id = var.vpc_id
 
     ingress {
         from_port = 3306

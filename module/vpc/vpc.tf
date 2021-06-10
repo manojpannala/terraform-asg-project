@@ -34,7 +34,7 @@ resource "aws_subnet" "mrp_vpc_public_subnet_1" {
 resource "aws_subnet" "mrp_vpc_public_subnet_2" {
     vpc_id = aws_vpc.mrp_vpc.id  
     cidr_block = var.VPC_PUBLIC_SUBNET_2_CIDR
-    availability_zone = data.aws_availability_zones.available.names[0]
+    availability_zone = data.aws_availability_zones.available.names[1]
     map_public_ip_on_launch = true
     
     tags = {
@@ -60,7 +60,7 @@ resource "aws_subnet" "mrp_vpc_private_subnet_1" {
 resource "aws_subnet" "mrp_vpc_private_subnet_2" {
     vpc_id = aws_vpc.mrp_vpc.id  
     cidr_block = var.VPC_PRIVATE_SUBNET_2_CIDR
-    availability_zone = data.aws_availability_zones.available.names[0]
+    availability_zone = data.aws_availability_zones.available.names[1]
     # map_public_ip_on_launch = true
     
     tags = {
