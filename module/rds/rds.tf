@@ -28,13 +28,13 @@ resource "aws_security_group" "mrp-rds-sg" {
         from_port = 3306
         to_port = 3306
         protocol = "tcp"
-        cidr_block = ["${var.RDS_CIDR}"]
+        cidr_blocks = ["${var.RDS_CIDR}"]
     }
     egress {
         from_port = 0
         to_port = 0
         protocol = "-1"
-        cidr_block = ["0.0.0.0/0"]
+        cidr_blocks = ["0.0.0.0/0"]
     }
 
     tags = {
