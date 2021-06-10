@@ -1,9 +1,12 @@
+provider "aws" {
+    region = var.AWS_REGION
+}
+
 data "aws_availability_zones" "available" {
     state = "available"  
 }
 
 # Main VPC
-
 resource "aws_vpc" "mrp_vpc" {
     cidr_block = var.VPC_CIDR_BLOCK  
     enable_dns_support = true
@@ -122,13 +125,21 @@ resource "aws_route_table" "private-rtb" {
 }
 
 # Route Table Association with Public Subnets
-resource "aws_route_table_association" "to_public_subnets" {
+resource "aws_route_table_association" "to_public_subnet_1" {
     subnet_id = aws_subnet.mrp_vpc_public_subnet_1.id
+    route_table_id = aws_route_table.public-rtb.id
+}
+resource "aws_route_table_association" "to_public_subnets_2" {
+    subnet_id = aws_subnet.mrp_vpc_public_subnet_2.id
     route_table_id = aws_route_table.public-rtb.id
 }
 
 # Route Table Association with Private Subnets
-resource "aws_route_table_association" "to_private_subnets" {
+resource "aws_route_table_association" "to_private_subnets_1" {
     subnet_id = aws_subnet.mrp_vpc_private_subnet_1.id
+    route_table_id = aws_route_table.private-rtb.id
+}
+resource "aws_route_table_association" "to_private_subnets_2" {
+    subnet_id = aws_subnet.mrp_vpc_private_subnet_2.id
     route_table_id = aws_route_table.private-rtb.id
 }
