@@ -14,3 +14,11 @@ variable "VPC_PUBLIC_SUBNET_1_CIDR" {
 variable "VPC_PUBLIC_SUBNET_2_CIDR" {
     default = "10.0.2.0/24"
 }
+
+variable "VPC_PRIVATE_SUBNET_1_CIDR" {
+    default = "10.0.3.0/24"
+}
+
+variable "VPC_PRIVATE_SUBNET_2_CIDR" {
+    default = "10.0.4.0/24"
+}
