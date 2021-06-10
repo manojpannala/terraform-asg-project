@@ -18,3 +18,26 @@ resource "aws_db_subnet_group" "mrp-rds-subnet-group" {
     }
 }
 
+# Define Security Groups for RDS Instances
+resource "aws_security_group" "mrp-rds-sg" {
+    name = "${var.ENVIRONMENT}-mrp-rds-sg"  
+    description = "SG for RDS"
+    vpc_id = module.mrp_vpc.my_vpc_id
+
+    ingress {
+        from_port = 3306
+        to_port = 3306
+        protocol = "tcp"
+        cidr_block = ["${var.RDS_CIDR}"]
+    }
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_block = ["0.0.0.0/0"]
+    }
+
+    tags = {
+        Name = "${var.ENVIRONMENT}-mrp-rds-sg"
+    }
+}
