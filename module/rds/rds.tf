@@ -10,8 +10,8 @@ resource "aws_db_subnet_group" "mrp-rds-subnet-group" {
     name = "${var.ENVIRONMENT}-mrp-rds-db"  
     description = "Allowed subnets for DB cluster instances"
     subnet_ids = [ 
-        "${module.vpc_private_subnet1}",
-        "${module.vpc_private_subnet2}" 
+        "${var.vpc_private_subnet1}",
+        "${var.vpc_private_subnet2}" 
     ]
     tags = {
         Name = "${var.ENVIRONMENT}-mrp-db-subnet"
