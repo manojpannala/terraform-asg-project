@@ -6,5 +6,5 @@ variable "AWS_REGION" {
 variable "ENVIRONMENT" {
     description = "AWS VPC ENVIRONMENT"
     type = string
-    default = "Development"
+    default = "development"
 }

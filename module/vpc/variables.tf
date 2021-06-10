@@ -10,7 +10,7 @@ variable "VPC_CIDR_BLOCK" {
 }
 
 variable "ENVIRONMENT" {
-    default = ""
+    default = "development"
     type = string
     description = "VPC ENVIRONMENT"
 }

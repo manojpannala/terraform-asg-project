@@ -23,7 +23,7 @@ variable "AWS_REGION" {
 variable "ENVIRONMENT" {
     description = "AWS VPC ENVIRONMENT"
     type = string
-    default = "Development"
+    default = "development"
 }
 
 variable "public_key_path" {
