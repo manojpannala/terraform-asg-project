@@ -21,7 +21,7 @@ module "mrp_app" {
     vpc_public_subnet2 = module.mrp_vpc.public_subnet_2_id
 }
 
-output "load_balancer_output" {
-  description = "Load Balancer"
-  value       = module.mrp_asg.load_balancer_output
-}
+# output "load_balancer_output" {
+#   description = "Load Balancer"
+#   value       = module.mrp_asg.load_balancer_output
+# }
