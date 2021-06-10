@@ -80,3 +80,36 @@ resource "aws_autoscaling_group" "mrp_asg" {
     vpc_zone_identifier = ["${module.mrp_vpc.public_subnet_1_id}","${module.mrp_vpc.public_subnet_2_id}"]
     target_group_arns = [aws_lb_target_group.load-balancer-target_group.arn]
 }
+
+# Application Load Balancer for App Server
+resource "aws_alb" "mrp-load-balancer" {
+    name = "${var.ENVIRONMENT}-mrp-lb"  
+    internal = false
+    load_balancer_type = "application"
+    security_groups = [aws_security_group.mrp_app_alb.id]
+    subnets = [ "${module.mrp_vpc.public_subnet_1_id}", "${module.mrp_vpc.public_subnet_2_id}" ]
+}
+
+# Add Target Groups
+resource "aws_alb_target_group" "load-balancer-target-group" {
+    name = "load-balancer-target-group"  
+    port = 80
+    protocol = "HTTP"
+    vpc_id = module.mrp_vpc.my_vpc_id
+}
+
+# Adding HTTP Listener
+resource "aws_lb_listener" "app_listener" {
+    load_balancer_arn = aws_lb.mrp-load-balancer.arn
+    port = "80"  
+    protocol = "HTTP"
+
+    default_action {
+      target_group_arn = aws_lb_target_group.load-balancer-target-group.arn
+      type = "forward"
+    }
+}
+
+output "load-balancer-output" {
+    value = aws_alb.mrp-load-balancer.dns_name  
+}
