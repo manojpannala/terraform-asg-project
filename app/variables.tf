@@ -28,7 +28,7 @@ variable "ENVIRONMENT" {
 
 variable "public_key_path" {
     description = "Public key path"
-    default = "~/.ssh.mrp_key.pub"
+    default = "~/.ssh/mrp_key.pub"
 }
 
 variable "vpc_private_subnet1" {
