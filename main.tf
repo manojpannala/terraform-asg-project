@@ -23,5 +23,5 @@ module "mrp_app" {
 
 output "load_balancer_output" {
   description = "Load Balancer"
-  value       = module.mrp_app.load_balancer_output
+  value       = module.mrp_asg.load_balancer_output
 }
