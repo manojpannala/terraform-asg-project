@@ -52,3 +52,17 @@ resource "aws_key_pair" "mrp_key" {
     public_key = file(var.public_key_path)
 }
 
+# Define Auto Scaling Launch Configuration
+resource "aws_launch_configuration" "launch_config_app" {
+    name = "launch_config_app"  
+    image_id = lookup(var.AMIS, var.AWS_REGION)
+    instance_type = var.INSTANCE_TYPE
+    user_data = "#!/bin/bash\napt-get update\napt-get -y install net-tools nginx\nMYIP=`ifconfig | grep -E '(inet 10)|(addr:10)' | awk '{ print $2 }' | cut -d ':' -f2`\necho 'Hello Guys\nThis is the EC2 IP: '$MYIP > /var/www/html/index.html"
+    security_groups = [ aws_security_group.mrp_app.id ]
+    key_name = aws_key_pair.mrp_key.key_name
+
+    root_block_device {
+      volume_type = "gp2"
+      volume_size = "20"
+    }
+}
