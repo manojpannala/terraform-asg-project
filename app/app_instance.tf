@@ -114,5 +114,5 @@ resource "aws_lb_listener" "app_listener" {
 }
 
 output "load-balancer-output" {
-    value = aws_alb.mrp-load-balancer.dns_name  
+    value = aws_lb.mrp-load-balancer.dns_name  
 }
