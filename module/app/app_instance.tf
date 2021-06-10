@@ -66,3 +66,17 @@ resource "aws_launch_configuration" "launch_config_app" {
       volume_size = "20"
     }
 }
+
+# Define AWS Autoscaling group
+resource "aws_autoscaling_group" "mrp_asg" {
+    name = "mrp_asg"  
+    max_size = 2
+    min_size = 1
+    health_check_grace_period = 30
+    health_check_type = "EC2"
+    desired_capacity = 1
+    force_delete = true
+    launch_configuration = aws_launch_configuration.launch_config_app.name
+    vpc_zone_identifier = ["${module.mrp_vpc.public_subnet_1_id}","${module.mrp_vpc.public_subnet_2_id}"]
+    target_group_arns = [aws_lb_target_group.load-balancer-target_group.arn]
+}
