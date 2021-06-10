@@ -41,3 +41,24 @@ resource "aws_security_group" "mrp-rds-sg" {
         Name = "${var.ENVIRONMENT}-mrp-rds-sg"
     }
 }
+
+# Define RDS Instance
+resource "aws_db_instance" "mrp_rds" {
+    identifier = "${var.ENVIRONMENT}-mrp-rds"  
+    allocated_storage = var.RDS_ALLOCATED_STORAGE
+    storage_type = "gp2"
+    engine = var.RDS_ENGINE
+    engine_version = var.RDS_ENGINE_VERSION
+    instance_class = var.DB_INSTANCE_CLASS
+    backup_retention_period = var.BACKUP_RETENTION_PERIOD
+    publicly_accessible = var.PUBLICLY_ACCESSIBLE
+    username = var.RDS_USERNAME
+    password = var.RDS_PASSWORD
+    vpc_security_group_ids = [aws_security_group.mrp-rds-sg.id]
+    db_subnet_group_name = aws_db_subnet_group.mrp-rds-subnet-group.name
+    multi_az = false
+}
+
+output "rds_prod_endpoint" {
+    value = aws_db_instance.mrp_rds.endpoint  
+}
