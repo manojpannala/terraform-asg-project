@@ -80,7 +80,7 @@ resource "aws_internet_gateway" "mrp-igw" {
 # Elastic IP for NAT Gateway
 resource "aws_eip" "mrp-nat-eip" {
     vpc = true
-    depends_depends_on = [
+    depends_on = [
       aws_internet_gateway.mrp-igw
     ]  
 }
@@ -116,7 +116,7 @@ resource "aws_route_table" "private-rtb" {
     vpc_id = aws_vpc.mrp_vpc.id
     route = [ {
       cidr_block = "0.0.0.0/0"
-      gateway_id = aws_nat_gateway.mrp-igw.id
+      gateway_id = aws_nat_gateway.mrp-ngw.id
     } ]
 
     tags = {
