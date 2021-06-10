@@ -14,11 +14,11 @@ module "mrp_app" {
     
     ENVIRONMENT = var.ENVIRONMENT
     AWS_REGION  = var.AWS_REGION
-    vpc_private_subnet1 = module.mrp_vpc.mrp_vpc_private_subnet_1
-    vpc_private_subnet2 = module.mrp_vpc.mrp_vpc_private_subnet_2
+    vpc_private_subnet1 = module.mrp_vpc.private_subnet_1_id
+    vpc_private_subnet2 = module.mrp_vpc.private_subnet_2_id
     vpc_id = module.mrp_vpc.my_vpc_id
-    vpc_public_subnet1 = module.mrp_vpc.mrp_vpc_public_subnet_1
-    vpc_public_subnet2 = module.mrp_vpc.mrp_vpc_public_subnet_2
+    vpc_public_subnet1 = module.mrp_vpc.public_subnet_1_id
+    vpc_public_subnet2 = module.mrp_vpc.public_subnet_2_id
 }
 
 output "load_balancer_output" {
