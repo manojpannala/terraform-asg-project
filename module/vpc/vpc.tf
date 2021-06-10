@@ -82,4 +82,15 @@ resource "aws_eip" "mrp-nat-eip" {
     ]  
 }
 
+# NAT Gateway for Private IP 
+resource "aws_nat_gateway" "mrp-ngw" {
+    allocation_id =   aws_eip.mrp-nat-eip.id
+    subnet_id = aws_subnet.mrp_vpc_public_subnet_1.id
+    depends_on = [
+      aws_internet_gateway.mrp-igw
+    ]
 
+    tags = {
+        Name = "${var.ENVIRONMENT}-mrp-vpc-nat-gateway"
+    }
+}
