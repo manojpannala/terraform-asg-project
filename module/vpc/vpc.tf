@@ -74,3 +74,12 @@ resource "aws_internet_gateway" "mrp-igw" {
     }
 }
 
+# Elastic IP for NAT Gateway
+resource "aws_eip" "mrp-nat-eip" {
+    vpc = true
+    depends_depends_on = [
+      aws_internet_gateway.mrp-igw
+    ]  
+}
+
+
